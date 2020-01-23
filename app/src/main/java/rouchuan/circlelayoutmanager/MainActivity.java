@@ -1,7 +1,6 @@
 package rouchuan.circlelayoutmanager;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,9 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private boolean isCircle = true;
+
+    private List<mIconModel> listIcon;
+    RecyclerAdapterCircle recyclerAdapterCircle;
+    RecyclerView recyclerView;
 
     ImageView img_central;
 
@@ -20,19 +26,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        img_central= (ImageView) findViewById(R.id.img_central);
-        final RecyclerView recyclerView =(RecyclerView)findViewById(R.id.recycler);
-        final CircleLayoutManager circleLayoutManager = new CircleLayoutManager(this);
-       // final ScrollZoomLayoutManager scrollZoomLayoutManager = new ScrollZoomLayoutManager(this,Dp2px(10));
+        listIcon = new ArrayList<>();
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+
+        loadRecyclerView();
+
+
+        img_central = (ImageView) findViewById(R.id.img_central);
+
+
+        //final ScrollZoomLayoutManager scrollZoomLayoutManager = new ScrollZoomLayoutManager(this,Dp2px(10));
         //recyclerView.addOnScrollListener(new CenterScrollListener());
-        recyclerView.setLayoutManager(circleLayoutManager);
-        recyclerView.setAdapter(new Adapter());
+
 
         img_central.setImageResource(R.drawable.helico1);
 
 
-
-        FloatingActionButton floatingActionButton = (FloatingActionButton)findViewById(R.id.fab);
+        //FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
 //        floatingActionButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -46,24 +57,41 @@ public class MainActivity extends AppCompatActivity {
 //        });
     }
 
+    private void loadRecyclerView() {
+        listIcon.add(new mIconModel(R.drawable.helico1, "Física"));
+        listIcon.add(new mIconModel(R.drawable.helico2, "Química"));
+        listIcon.add(new mIconModel(R.drawable.helico3, "Algebra"));
+        listIcon.add(new mIconModel(R.drawable.helico4, "Trigonometría"));
+        listIcon.add(new mIconModel(R.drawable.helico5, "Biología"));
+        listIcon.add(new mIconModel(R.drawable.helico6, "Psicología"));
+        listIcon.add(new mIconModel(R.drawable.helico7, "Historia del Perú"));
+        listIcon.add(new mIconModel(R.drawable.helico8, "Historia Universal"));
+
+        recyclerAdapterCircle = new RecyclerAdapterCircle(listIcon, this);
+        final CircleLayoutManager circleLayoutManager = new CircleLayoutManager(this);
+        recyclerView.setLayoutManager(circleLayoutManager);
+        recyclerView.setAdapter(recyclerAdapterCircle);
+
+    }
+
     public int Dp2px(float dp) {
         final float scale = getResources().getDisplayMetrics().density;
         return (int) (dp * scale + 0.5f);
 
     }
 
-    class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new MyViewHolder(LayoutInflater.from(MainActivity.this).inflate(R.layout.my_image,parent,false));
+            return new MyViewHolder(LayoutInflater.from(MainActivity.this).inflate(R.layout.my_image, parent, false));
         }
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             //int index = (position+1)%6;
-            int index = (position+1)%12;
+            int index = (position + 1) % 12;
             int res = 0;
-            switch (index){
+            switch (index) {
                 case 0:
                     res = R.drawable.helico1;
 
@@ -109,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
             }
-            ((MyViewHolder)holder).imageView.setImageResource(res);
+            ((MyViewHolder) holder).imageView.setImageResource(res);
         }
 
         @Override
@@ -117,9 +145,10 @@ public class MainActivity extends AppCompatActivity {
             return 12;
         }
 
-        class MyViewHolder extends RecyclerView.ViewHolder{
+        class MyViewHolder extends RecyclerView.ViewHolder {
             ImageView imageView;
-            public MyViewHolder(View itemView){
+
+            public MyViewHolder(View itemView) {
                 super(itemView);
                 imageView = (ImageView) itemView.findViewById(R.id.image);
             }
