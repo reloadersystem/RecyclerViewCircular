@@ -66,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
         listIcon.add(new mIconModel(R.drawable.helico6, "Psicología"));
         listIcon.add(new mIconModel(R.drawable.helico7, "Historia del Perú"));
         listIcon.add(new mIconModel(R.drawable.helico8, "Historia Universal"));
+        listIcon.add(new mIconModel(R.drawable.helico8, "Historia Universal"));
+        listIcon.add(new mIconModel(R.drawable.helico8, "Historia Universal"));
+        listIcon.add(new mIconModel(R.drawable.helico8, "Historia Universal"));
+        listIcon.add(new mIconModel(R.drawable.helico8, "Historia Universal"));
 
         recyclerAdapterCircle = new RecyclerAdapterCircle(listIcon, this);
         final CircleLayoutManager circleLayoutManager = new CircleLayoutManager(this);

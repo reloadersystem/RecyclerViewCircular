@@ -81,7 +81,7 @@ public class RecyclerAdapterCircle extends RecyclerView.Adapter<RecyclerAdapterC
 
         viewicon = holder.iconImg;
 
-        RotateAnimation animation = new RotateAnimation(-180, 0, RotateAnimation.RELATIVE_TO_SELF,
+        RotateAnimation animation = new RotateAnimation(-350, 0, RotateAnimation.RELATIVE_TO_SELF,
                 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
         animation.setDuration(4000);
         animation.setFillAfter(true);
@@ -105,7 +105,5 @@ public class RecyclerAdapterCircle extends RecyclerView.Adapter<RecyclerAdapterC
 
             iconImg = (CircleImageView) itemView.findViewById(R.id.image);
         }
-
     }
-
 }

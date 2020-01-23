@@ -188,7 +188,8 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
      * @return the y of view
      */
     private int calTopPosition(float rotate){
-        return (int) (mRadius - mRadius * Math.sin(Math.toRadians(180 - rotate)));
+         return (int) (mRadius - mRadius * Math.sin(Math.toRadians(180 - rotate)));
+         //return (int) (mRadius - mRadius * Math.sin(Math.toRadians(210 - rotate))); //eclipse
     }
 
     private int getHorizontalSpace() {
