@@ -15,7 +15,8 @@ import android.view.ViewGroup;
 public class CircleLayoutManager extends RecyclerView.LayoutManager{
     
     private static int INTERVAL_ANGLE = 30;// The default interval angle between each items
-    private static float DISTANCE_RATIO = 10f; // Finger swipe distance divide item rotate angle
+    //private static float DISTANCE_RATIO = 10f; // Finger swipe distance divide item rotate angle
+    private static float DISTANCE_RATIO = 20f; // Finger swipe distance divide item rotate angle
 
     //Flags of scroll dirction
     private static int SCROLL_LEFT = 1;
@@ -53,8 +54,10 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
         this.context = context;
         intervalAngle = INTERVAL_ANGLE;
         offsetRotate = 0;
-        minRemoveDegree = -90;
-        maxRemoveDegree = 90;
+//        minRemoveDegree = -90;
+        minRemoveDegree = -270;
+        maxRemoveDegree = 270;
+//        maxRemoveDegree = 90;
     }
 
     @Override
@@ -176,7 +179,7 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
      * @return the x of view
      */
     private int calLeftPosition(float rotate){
-        return (int) (mRadius * Math.cos(Math.toRadians(90 - rotate)));
+        return (int) (mRadius * Math.cos(Math.toRadians(180 - rotate)));
     }
 
     /**
@@ -185,7 +188,7 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
      * @return the y of view
      */
     private int calTopPosition(float rotate){
-        return (int) (mRadius - mRadius * Math.sin(Math.toRadians(90 - rotate)));
+        return (int) (mRadius - mRadius * Math.sin(Math.toRadians(180 - rotate)));
     }
 
     private int getHorizontalSpace() {

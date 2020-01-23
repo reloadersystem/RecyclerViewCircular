@@ -13,33 +13,43 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isCircle = true;
 
+    ImageView img_central;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        img_central= (ImageView) findViewById(R.id.img_central);
         final RecyclerView recyclerView =(RecyclerView)findViewById(R.id.recycler);
         final CircleLayoutManager circleLayoutManager = new CircleLayoutManager(this);
-        final ScrollZoomLayoutManager scrollZoomLayoutManager = new ScrollZoomLayoutManager(this,Dp2px(10));
-        recyclerView.addOnScrollListener(new CenterScrollListener());
+       // final ScrollZoomLayoutManager scrollZoomLayoutManager = new ScrollZoomLayoutManager(this,Dp2px(10));
+        //recyclerView.addOnScrollListener(new CenterScrollListener());
         recyclerView.setLayoutManager(circleLayoutManager);
         recyclerView.setAdapter(new Adapter());
+
+        img_central.setImageResource(R.drawable.helico1);
+
+
+
         FloatingActionButton floatingActionButton = (FloatingActionButton)findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isCircle){
-                    recyclerView.setLayoutManager(scrollZoomLayoutManager);
-                }else{
-                    recyclerView.setLayoutManager(circleLayoutManager);
-                }
-                isCircle = !isCircle;
-            }
-        });
+//        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(isCircle){
+//                    recyclerView.setLayoutManager(scrollZoomLayoutManager);
+//                }else{
+//                    recyclerView.setLayoutManager(circleLayoutManager);
+//                }
+//                isCircle = !isCircle;
+//            }
+//        });
     }
 
     public int Dp2px(float dp) {
         final float scale = getResources().getDisplayMetrics().density;
         return (int) (dp * scale + 0.5f);
+
     }
 
     class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
@@ -51,11 +61,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             //int index = (position+1)%6;
-            int index = (position+1)%8;
+            int index = (position+1)%12;
             int res = 0;
             switch (index){
                 case 0:
                     res = R.drawable.helico1;
+
                     break;
                 case 1:
                     res = R.drawable.helico2;
@@ -80,13 +91,30 @@ public class MainActivity extends AppCompatActivity {
                 case 7:
                     res = R.drawable.helico8;
                     break;
+
+                case 8:
+                    res = R.drawable.helico8;
+                    break;
+
+                case 9:
+                    res = R.drawable.helico8;
+                    break;
+
+                case 10:
+                    res = R.drawable.helico8;
+                    break;
+
+                case 11:
+                    res = R.drawable.helico4;
+                    break;
+
             }
             ((MyViewHolder)holder).imageView.setImageResource(res);
         }
 
         @Override
         public int getItemCount() {
-            return 8;
+            return 12;
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder{
