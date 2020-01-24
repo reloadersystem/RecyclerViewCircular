@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CircleLayoutManager-master.iml" filepath="$PROJECT_DIR$/CircleLayoutManager-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/CircleLayoutManager-master-app.iml" filepath="$PROJECT_DIR$/app/CircleLayoutManager-master-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

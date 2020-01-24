@@ -13,7 +13,7 @@ import android.view.ViewGroup;
  * Created by Dajavu on 16/4/22.
  */
 public class CircleLayoutManager extends RecyclerView.LayoutManager{
-    
+
     private static int INTERVAL_ANGLE = 30;// The default interval angle between each items
     //private static float DISTANCE_RATIO = 10f; // Finger swipe distance divide item rotate angle
     private static float DISTANCE_RATIO = 20f; // Finger swipe distance divide item rotate angle
@@ -49,6 +49,8 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
     private SparseBooleanArray itemAttached = new SparseBooleanArray();
     private SparseArray<Float> itemsRotate = new SparseArray<>();
 
+    private float maxScale;
+
 
     public CircleLayoutManager(Context context) {
         this.context = context;
@@ -82,6 +84,7 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
         }
 
         //record the state of each items
+
         float rotate = firstChildRotate;
         for (int i = 0; i < getItemCount(); i++) {
             itemsRotate.put(i,rotate);
@@ -89,9 +92,16 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
             rotate+= intervalAngle;
         }
 
-        detachAndScrapAttachedViews(recycler);
-        fixRotateOffset();
-        layoutItems(recycler,state);
+        detachAndScrapAttachedViews(recycler); //recycla los objetos para que  no se superpongan
+       // fixRotateOffset();
+        layoutItems(recycler,state); // estado inicial del  recycler
+    }
+
+    private float calculateScale(int x){   // scala  la imagen al pasar position
+        int deltaX = Math.abs(x-(getHorizontalSpace() - mDecoratedChildWidth) / 2);
+        float diff = 0f;
+        if((mDecoratedChildWidth-deltaX)>0) diff = mDecoratedChildWidth-deltaX;
+        return (maxScale-1f)/mDecoratedChildWidth * diff + 1;
     }
 
     private void layoutItems(RecyclerView.Recycler recycler,RecyclerView.State state){
@@ -99,7 +109,7 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
     }
 
     private void layoutItems(RecyclerView.Recycler recycler,
-                             RecyclerView.State state,int oritention){
+                             RecyclerView.State state,int orientation){
         if(state.isPreLayout()) return;
 
         //remove the views which out of range
@@ -120,7 +130,7 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
                 if(!itemAttached.get(i)){
                     View scrap = recycler.getViewForPosition(i);
                     measureChildWithMargins(scrap, 0, 0);
-                    if(oritention == SCROLL_LEFT)
+                    if(orientation == SCROLL_LEFT)
                         addView(scrap,0);
                     else
                         addView(scrap);

@@ -1,6 +1,8 @@
 package rouchuan.circlelayoutmanager;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,9 +12,11 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -34,6 +38,7 @@ public class RecyclerAdapterCircle extends RecyclerView.Adapter<RecyclerAdapterC
         return new ViewHolder(v);
     }
 
+    @SuppressLint({"ResourceAsColor", "ResourceType"})
     @Override
     public void onBindViewHolder(final RecyclerAdapterCircle.ViewHolder holder, final int position) {
 
@@ -41,6 +46,13 @@ public class RecyclerAdapterCircle extends RecyclerView.Adapter<RecyclerAdapterC
 //        int res = 0;
 
         holder.iconImg.setImageResource(listIcon.get(position).getImgmenu());
+
+        int num = listIcon.size();
+
+        /*if (num % 2 == position) { // pinta cada 7 elementos al iniciar
+            holder.iconImg.setCircleBackgroundColorResource(R.color.colorIconAlter);
+            // holder.itemView.setBackgroundColor(Color.parseColor("#373737"));
+        }*/
 
 
         int cx = holder.iconImg.getWidth();
@@ -60,6 +72,8 @@ public class RecyclerAdapterCircle extends RecyclerView.Adapter<RecyclerAdapterC
                 Toast.makeText(mCtx, materia, Toast.LENGTH_SHORT).show();
             }
         });
+
+
 
     }
 
@@ -106,4 +120,6 @@ public class RecyclerAdapterCircle extends RecyclerView.Adapter<RecyclerAdapterC
             iconImg = (CircleImageView) itemView.findViewById(R.id.image);
         }
     }
+
+
 }

@@ -1,5 +1,7 @@
 package rouchuan.circlelayoutmanager;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +13,7 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements  RecyclerView.OnScrollChangeListener {
 
     private boolean isCircle = true;
 
@@ -42,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
         img_central.setImageResource(R.drawable.helico1);
 
+        int distance = 8000;
+        float scale = getResources().getDisplayMetrics().density * distance;
+
 
         //FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
 //        floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
 //        });
     }
 
+
+
     private void loadRecyclerView() {
         listIcon.add(new mIconModel(R.drawable.helico1, "Física"));
         listIcon.add(new mIconModel(R.drawable.helico2, "Química"));
@@ -66,21 +73,26 @@ public class MainActivity extends AppCompatActivity {
         listIcon.add(new mIconModel(R.drawable.helico6, "Psicología"));
         listIcon.add(new mIconModel(R.drawable.helico7, "Historia del Perú"));
         listIcon.add(new mIconModel(R.drawable.helico8, "Historia Universal"));
-        listIcon.add(new mIconModel(R.drawable.helico8, "Historia Universal"));
-        listIcon.add(new mIconModel(R.drawable.helico8, "Historia Universal"));
-        listIcon.add(new mIconModel(R.drawable.helico8, "Historia Universal"));
-        listIcon.add(new mIconModel(R.drawable.helico8, "Historia Universal"));
+
 
         recyclerAdapterCircle = new RecyclerAdapterCircle(listIcon, this);
         final CircleLayoutManager circleLayoutManager = new CircleLayoutManager(this);
         recyclerView.setLayoutManager(circleLayoutManager);
         recyclerView.setAdapter(recyclerAdapterCircle);
 
+
+
+
     }
 
     public int Dp2px(float dp) {
         final float scale = getResources().getDisplayMetrics().density;
         return (int) (dp * scale + 0.5f);
+
+    }
+
+    @Override
+    public void onScrollChange(View view, int i, int i1, int i2, int i3) {
 
     }
 
@@ -158,4 +170,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
+
+
 }
