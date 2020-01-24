@@ -2,7 +2,6 @@ package rouchuan.circlelayoutmanager;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,11 +11,9 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import java.util.List;
-import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -45,6 +42,8 @@ public class RecyclerAdapterCircle extends RecyclerView.Adapter<RecyclerAdapterC
 //        int index = (position + 1) % 12;
 //        int res = 0;
 
+        holder.setIsRecyclable(false);
+
         holder.iconImg.setImageResource(listIcon.get(position).getImgmenu());
 
         int num = listIcon.size();
@@ -72,7 +71,6 @@ public class RecyclerAdapterCircle extends RecyclerView.Adapter<RecyclerAdapterC
                 Toast.makeText(mCtx, materia, Toast.LENGTH_SHORT).show();
             }
         });
-
 
 
     }

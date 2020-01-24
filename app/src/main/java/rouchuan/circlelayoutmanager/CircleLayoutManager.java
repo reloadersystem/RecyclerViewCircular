@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by Dajavu on 16/4/22.
+ * Created by Reloader
  */
 public class CircleLayoutManager extends RecyclerView.LayoutManager{
 
@@ -49,7 +49,9 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
     private SparseBooleanArray itemAttached = new SparseBooleanArray();
     private SparseArray<Float> itemsRotate = new SparseArray<>();
 
-    private float maxScale;
+    private float maxScale; //max scale rate defalut is 1.2f
+    private static final float SCALE_RATE = 1.3f;
+
 
 
     public CircleLayoutManager(Context context) {
@@ -57,9 +59,10 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
         intervalAngle = INTERVAL_ANGLE;
         offsetRotate = 0;
 //        minRemoveDegree = -90;
-        minRemoveDegree = -270;
-        maxRemoveDegree = 270;
+        minRemoveDegree = -330;
+        maxRemoveDegree = 330;
 //        maxRemoveDegree = 90;
+        maxScale = SCALE_RATE;
     }
 
     @Override
@@ -78,13 +81,13 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
             mDecoratedChildWidth = getDecoratedMeasuredWidth(scrap);
             mDecoratedChildHeight = getDecoratedMeasuredHeight(scrap);
             startLeft = contentOffsetX == -1?(getHorizontalSpace() - mDecoratedChildWidth)/2: contentOffsetX;
+
             startTop = contentOffsetY ==-1?0: contentOffsetY;
             mRadius = mDecoratedChildHeight;
             detachAndScrapView(scrap, recycler);
         }
 
         //record the state of each items
-
         float rotate = firstChildRotate;
         for (int i = 0; i < getItemCount(); i++) {
             itemsRotate.put(i,rotate);
@@ -92,16 +95,9 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
             rotate+= intervalAngle;
         }
 
-        detachAndScrapAttachedViews(recycler); //recycla los objetos para que  no se superpongan
-       // fixRotateOffset();
-        layoutItems(recycler,state); // estado inicial del  recycler
-    }
-
-    private float calculateScale(int x){   // scala  la imagen al pasar position
-        int deltaX = Math.abs(x-(getHorizontalSpace() - mDecoratedChildWidth) / 2);
-        float diff = 0f;
-        if((mDecoratedChildWidth-deltaX)>0) diff = mDecoratedChildWidth-deltaX;
-        return (maxScale-1f)/mDecoratedChildWidth * diff + 1;
+        detachAndScrapAttachedViews(recycler);
+        fixRotateOffset();
+        layoutItems(recycler,state);
     }
 
     private void layoutItems(RecyclerView.Recycler recycler,RecyclerView.State state){
@@ -109,7 +105,7 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
     }
 
     private void layoutItems(RecyclerView.Recycler recycler,
-                             RecyclerView.State state,int orientation){
+                             RecyclerView.State state,int oritention){
         if(state.isPreLayout()) return;
 
         //remove the views which out of range
@@ -130,7 +126,7 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
                 if(!itemAttached.get(i)){
                     View scrap = recycler.getViewForPosition(i);
                     measureChildWithMargins(scrap, 0, 0);
-                    if(orientation == SCROLL_LEFT)
+                    if(oritention == SCROLL_LEFT)
                         addView(scrap,0);
                     else
                         addView(scrap);
@@ -168,6 +164,9 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
         for(int i=0;i<getChildCount();i++){
             View view = getChildAt(i);
             float newRotate = view.getRotation() - theta;
+            float scale = calculateScale(view.getLeft());
+            view.setScaleX(scale%10f); //TODO scala habilitando
+            view.setScaleY(scale%10f);
             int offsetX = calLeftPosition(newRotate);
             int offsetY = calTopPosition(newRotate);
             layoutDecorated(view, startLeft + offsetX, startTop + offsetY,
@@ -185,9 +184,18 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
 
     /**
      *
-     * @param rotate the current rotate of view
+     *
      * @return the x of view
      */
+
+    private float calculateScale(int x){   // scala  la imagen al pasar position
+        int deltaX = Math.abs(x-(getHorizontalSpace() - mDecoratedChildWidth) / 2);
+        float diff = 0f;
+        if((mDecoratedChildWidth-deltaX)>0) diff = mDecoratedChildWidth-deltaX;
+        return (maxScale-1f)/mDecoratedChildWidth * diff + 1;
+//TODO ESCALAR
+    }
+
     private int calLeftPosition(float rotate){
         return (int) (mRadius * Math.cos(Math.toRadians(180 - rotate)));
     }

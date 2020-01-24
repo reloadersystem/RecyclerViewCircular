@@ -1,7 +1,5 @@
 package rouchuan.circlelayoutmanager;
 
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +11,7 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements  RecyclerView.OnScrollChangeListener {
+public class MainActivity extends AppCompatActivity {
 
     private boolean isCircle = true;
 
@@ -27,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements  RecyclerView.OnS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setTitle("Reloader Developer");
 
         listIcon = new ArrayList<>();
 
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements  RecyclerView.OnS
         //recyclerView.addOnScrollListener(new CenterScrollListener());
 
 
-        img_central.setImageResource(R.drawable.helico1);
+        img_central.setImageResource(R.drawable.image1);
 
         int distance = 8000;
         float scale = getResources().getDisplayMetrics().density * distance;
@@ -63,37 +63,30 @@ public class MainActivity extends AppCompatActivity implements  RecyclerView.OnS
     }
 
 
-
     private void loadRecyclerView() {
-        listIcon.add(new mIconModel(R.drawable.helico1, "Física"));
-        listIcon.add(new mIconModel(R.drawable.helico2, "Química"));
-        listIcon.add(new mIconModel(R.drawable.helico3, "Algebra"));
-        listIcon.add(new mIconModel(R.drawable.helico4, "Trigonometría"));
-        listIcon.add(new mIconModel(R.drawable.helico5, "Biología"));
-        listIcon.add(new mIconModel(R.drawable.helico6, "Psicología"));
-        listIcon.add(new mIconModel(R.drawable.helico7, "Historia del Perú"));
-        listIcon.add(new mIconModel(R.drawable.helico8, "Historia Universal"));
+        listIcon.add(new mIconModel(R.drawable.image1, "Facebook"));
+        listIcon.add(new mIconModel(R.drawable.image2, "Twitter"));
+        listIcon.add(new mIconModel(R.drawable.image3, "Pinterest"));
+        listIcon.add(new mIconModel(R.drawable.image4, "Skype"));
+        listIcon.add(new mIconModel(R.drawable.image5, "Android"));
+        listIcon.add(new mIconModel(R.drawable.image6, "Google"));
+        listIcon.add(new mIconModel(R.drawable.image7, "Spotify"));
+        listIcon.add(new mIconModel(R.drawable.image8, "Apple"));
+        listIcon.add(new mIconModel(R.drawable.image9, "YouTube"));
+        listIcon.add(new mIconModel(R.drawable.image10, "Vimeo"));
+        listIcon.add(new mIconModel(R.drawable.image11, "Video"));
+        listIcon.add(new mIconModel(R.drawable.image12, "Skype"));
 
 
         recyclerAdapterCircle = new RecyclerAdapterCircle(listIcon, this);
         final CircleLayoutManager circleLayoutManager = new CircleLayoutManager(this);
         recyclerView.setLayoutManager(circleLayoutManager);
         recyclerView.setAdapter(recyclerAdapterCircle);
-
-
-
-
     }
 
     public int Dp2px(float dp) {
         final float scale = getResources().getDisplayMetrics().density;
         return (int) (dp * scale + 0.5f);
-
-    }
-
-    @Override
-    public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-
     }
 
     class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -170,8 +163,6 @@ public class MainActivity extends AppCompatActivity implements  RecyclerView.OnS
             }
         }
     }
-
-
 
 
 }

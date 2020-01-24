@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 
 
 /**
- * Created by Dajavu on 16/8/18.
+ * Created by Reloader
  */
 public class CenterScrollListener extends RecyclerView.OnScrollListener{
     private boolean mAutoSet = false;

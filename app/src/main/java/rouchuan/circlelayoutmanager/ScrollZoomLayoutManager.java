@@ -9,8 +9,9 @@ import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 /**
- * Created by Dajavu on 8/18/16.
+ * Created by Reloader
  */
 public class ScrollZoomLayoutManager extends RecyclerView.LayoutManager {
     //    private static final float SCALE_RATE = 1.2f;
