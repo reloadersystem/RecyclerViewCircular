@@ -38,10 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         img_central = (ImageView) findViewById(R.id.img_central);
 
-
         //final ScrollZoomLayoutManager scrollZoomLayoutManager = new ScrollZoomLayoutManager(this,Dp2px(10));
         //recyclerView.addOnScrollListener(new CenterScrollListener());
-
 
         img_central.setImageResource(R.drawable.helico1);
 
@@ -68,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
         //listAddIcon();
         listAddIconSocial();
-
-
 
         recyclerAdapterCircle = new RecyclerAdapterCircle(listIcon, this);
         final CircleLayoutManager circleLayoutManager = new CircleLayoutManager(this);

@@ -78,21 +78,15 @@ public class RecyclerAdapterCircle extends RecyclerView.Adapter<RecyclerAdapterC
                     mSetRightOut.start();
                     mSetLeftIn.start();
                     mIsBackVisible = true;
+                    openActivity(position);
 
-                    /*String materia = listIcon.get(position).getMateria();
-                    Toast.makeText(mCtx, materia, Toast.LENGTH_SHORT).show();
-                    //int xImgPosition = holder.iconImg.getLeft();
-                    //int yImgPosition = holder.iconImg.getTop();
-                    Intent intent = new Intent(mCtx, ActivityZoomScreen.class);
-                    //intent.putExtra("xPosition", xImgPosition);
-                    //intent.putExtra("yPosition", yImgPosition);
-                    mCtx.startActivity(intent);*/
                 } else {
                     mSetRightOut.setTarget(holder.iconImg);
                     mSetLeftIn.setTarget(holder.iconImg);
                     mSetRightOut.start();
                     mSetLeftIn.start();
                     mIsBackVisible = false;
+                    openActivity(position);
                 }
             }
         });
@@ -119,6 +113,26 @@ public class RecyclerAdapterCircle extends RecyclerView.Adapter<RecyclerAdapterC
                 //handler.postDelayed(this, 2000); //ejecutar despues del efecto
             }
         }, 4000);
+    }
+
+    private void openActivity(final int position) {
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                String materia = listIcon.get(position).getMateria();
+                Toast.makeText(mCtx, materia, Toast.LENGTH_SHORT).show();
+                //int xImgPosition = holder.iconImg.getLeft();
+                //int yImgPosition = holder.iconImg.getTop();
+                Intent intent = new Intent(mCtx, ActivityZoomScreen.class);
+                //intent.putExtra("xPosition", xImgPosition);
+                //intent.putExtra("yPosition", yImgPosition);
+                mCtx.startActivity(intent);
+                //handler.postDelayed(this, 2000); //ejecutar despues del efecto
+            }
+        }, 1000);
     }
 
     private void girarIcon(ViewHolder holder) {
