@@ -1,5 +1,7 @@
-package rouchuan.circlelayoutmanager;
+package reloader.circlelayoutmanager;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
@@ -11,7 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import java.util.List;
 
@@ -20,6 +22,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class RecyclerAdapterCircle extends RecyclerView.Adapter<RecyclerAdapterCircle.ViewHolder> {
     private List<mIconModel> listIcon;
     private Context mCtx;
+    private AnimatorSet mSetRightOut;
+    private AnimatorSet mSetLeftIn;
+    private boolean mIsBackVisible = false;
+
     View viewicon;
 
     public RecyclerAdapterCircle(List<mIconModel> listIcon, Context mCtx) {
@@ -41,10 +47,14 @@ public class RecyclerAdapterCircle extends RecyclerView.Adapter<RecyclerAdapterC
 
 //        int index = (position + 1) % 12;
 //        int res = 0;
+        loadAnimations();
+        changeCameraDistance(holder.iconImg, holder.iconImg2);
 
         holder.setIsRecyclable(false);
 
         holder.iconImg.setImageResource(listIcon.get(position).getImgmenu());
+
+        final View viewScale = holder.iconImg;
 
         int num = listIcon.size();
 
@@ -53,7 +63,46 @@ public class RecyclerAdapterCircle extends RecyclerView.Adapter<RecyclerAdapterC
             // holder.itemView.setBackgroundColor(Color.parseColor("#373737"));
         }*/
 
+        movCardShow(holder);
+        //scaleFromBegin(holder);
+        //ejecutarAnimacion(holder);
 
+        holder.iconImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+              /*  String materia = listIcon.get(position).getMateria();
+                Toast.makeText(mCtx, materia, Toast.LENGTH_SHORT).show();
+                //int xImgPosition = holder.iconImg.getLeft();
+                //int yImgPosition = holder.iconImg.getTop();
+                Intent intent = new Intent(mCtx, ActivityZoomScreen.class);
+                //intent.putExtra("xPosition", xImgPosition);
+                //intent.putExtra("yPosition", yImgPosition);
+                mCtx.startActivity(intent);*/
+                if (!mIsBackVisible) {
+                    mSetRightOut.setTarget(holder.iconImg);  //Establece el objeto de destino para todos los actuales child animations de este AnimatorSet que toman objetivos ( ObjectAnimatory AnimatorSet).
+                    mSetLeftIn.setTarget(holder.iconImg);
+                    mSetRightOut.start();
+                    mSetLeftIn.start();
+                    mIsBackVisible = true;
+                } else {
+                    mSetRightOut.setTarget(holder.iconImg);
+                    mSetLeftIn.setTarget(holder.iconImg);
+                    mSetRightOut.start();
+                    mSetLeftIn.start();
+                    mIsBackVisible = false;
+                }
+
+            }
+        });
+    }
+
+    private void movCardShow(ViewHolder holder) {
+
+
+    }
+
+    private void scaleFromBegin(ViewHolder holder) {
         int cx = holder.iconImg.getWidth();
         int cy = holder.iconImg.getHeight();
 
@@ -61,18 +110,6 @@ public class RecyclerAdapterCircle extends RecyclerView.Adapter<RecyclerAdapterC
         ScaleAnimation animation = new ScaleAnimation(cx, cx + 1, cy, cy + 1, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         animation.setDuration(2000);
         viewicon.startAnimation(animation);
-
-        ejecutarAnimacion(holder);
-
-        holder.iconImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String materia = listIcon.get(position).getMateria();
-                Toast.makeText(mCtx, materia, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
     }
 
     private void ejecutarAnimacion(final ViewHolder holder) {
@@ -89,7 +126,6 @@ public class RecyclerAdapterCircle extends RecyclerView.Adapter<RecyclerAdapterC
     }
 
     private void girarIcon(ViewHolder holder) {
-
 
         viewicon = holder.iconImg;
 
@@ -109,15 +145,28 @@ public class RecyclerAdapterCircle extends RecyclerView.Adapter<RecyclerAdapterC
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         CircleImageView iconImg;
+        CircleImageView iconImg2;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             iconImg = (CircleImageView) itemView.findViewById(R.id.image);
+            iconImg2 = (CircleImageView) itemView.findViewById(R.id.image2);
         }
     }
 
+    private void changeCameraDistance(ImageView img1, ImageView img2) {
+        int distance = 5000;
+        float scale = mCtx.getResources().getDisplayMetrics().density * distance;
+        img1.setCameraDistance(scale);
+        img2.setCameraDistance(scale);
+    }
+
+    private void loadAnimations() {
+        mSetRightOut = (AnimatorSet) AnimatorInflater.loadAnimator(mCtx, R.animator.out_animation);
+        mSetLeftIn = (AnimatorSet) AnimatorInflater.loadAnimator(mCtx, R.animator.in_animation);
+    }
 
 }

@@ -1,4 +1,4 @@
-package rouchuan.circlelayoutmanager;
+package reloader.circlelayoutmanager;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private List<mIconModel> listIcon;
     RecyclerAdapterCircle recyclerAdapterCircle;
     RecyclerView recyclerView;
+    FrameLayout fr_contenedor;
 
     ImageView img_central;
 
@@ -26,11 +28,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setTitle("Reloader Developer");
-
         listIcon = new ArrayList<>();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        fr_contenedor = (FrameLayout) findViewById(R.id.fr_contenedor);
 
         loadRecyclerView();
 
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         //recyclerView.addOnScrollListener(new CenterScrollListener());
 
 
-        img_central.setImageResource(R.drawable.image1);
+        img_central.setImageResource(R.drawable.helico1);
 
         int distance = 8000;
         float scale = getResources().getDisplayMetrics().density * distance;
@@ -64,24 +65,48 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void loadRecyclerView() {
-        listIcon.add(new mIconModel(R.drawable.image1, "Facebook"));
-        listIcon.add(new mIconModel(R.drawable.image2, "Twitter"));
-        listIcon.add(new mIconModel(R.drawable.image3, "Pinterest"));
-        listIcon.add(new mIconModel(R.drawable.image4, "Skype"));
-        listIcon.add(new mIconModel(R.drawable.image5, "Android"));
-        listIcon.add(new mIconModel(R.drawable.image6, "Google"));
-        listIcon.add(new mIconModel(R.drawable.image7, "Spotify"));
-        listIcon.add(new mIconModel(R.drawable.image8, "Apple"));
-        listIcon.add(new mIconModel(R.drawable.image9, "YouTube"));
-        listIcon.add(new mIconModel(R.drawable.image10, "Vimeo"));
-        listIcon.add(new mIconModel(R.drawable.image11, "Video"));
-        listIcon.add(new mIconModel(R.drawable.image12, "Skype"));
+
+        //listAddIcon();
+        listAddIconSocial();
+
 
 
         recyclerAdapterCircle = new RecyclerAdapterCircle(listIcon, this);
         final CircleLayoutManager circleLayoutManager = new CircleLayoutManager(this);
+        recyclerView.addOnScrollListener(new CenterScrollListener());
         recyclerView.setLayoutManager(circleLayoutManager);
         recyclerView.setAdapter(recyclerAdapterCircle);
+    }
+
+    private void listAddIconSocial() {
+        listIcon.add(new mIconModel(R.drawable.image1, "Física"));
+        listIcon.add(new mIconModel(R.drawable.image2, "Química"));
+        listIcon.add(new mIconModel(R.drawable.image3, "Algebra"));
+        listIcon.add(new mIconModel(R.drawable.image4, "Trigonometría"));
+        listIcon.add(new mIconModel(R.drawable.image5, "Biología"));
+        listIcon.add(new mIconModel(R.drawable.image6, "Psicología"));
+        listIcon.add(new mIconModel(R.drawable.image7, "Historia del Perú"));
+        listIcon.add(new mIconModel(R.drawable.image8, "Historia Universal"));
+        listIcon.add(new mIconModel(R.drawable.image9, "Literatura"));
+        listIcon.add(new mIconModel(R.drawable.image10, "Inglés"));
+        listIcon.add(new mIconModel(R.drawable.image11, "Aritmética"));
+        listIcon.add(new mIconModel(R.drawable.image12, "Razonamiento Matemático"));
+
+    }
+
+    private void listAddIcon() {
+        listIcon.add(new mIconModel(R.drawable.helico1, "Física"));
+        listIcon.add(new mIconModel(R.drawable.helico2, "Química"));
+        listIcon.add(new mIconModel(R.drawable.helico3, "Algebra"));
+        listIcon.add(new mIconModel(R.drawable.helico4, "Trigonometría"));
+        listIcon.add(new mIconModel(R.drawable.helico5, "Biología"));
+        listIcon.add(new mIconModel(R.drawable.helico6, "Psicología"));
+        listIcon.add(new mIconModel(R.drawable.helico7, "Historia del Perú"));
+        listIcon.add(new mIconModel(R.drawable.helico8, "Historia Universal"));
+        listIcon.add(new mIconModel(R.drawable.helico9, "Literatura"));
+        listIcon.add(new mIconModel(R.drawable.helico10, "Inglés"));
+        listIcon.add(new mIconModel(R.drawable.helico11, "Aritmética"));
+        listIcon.add(new mIconModel(R.drawable.helico12, "Razonamiento Matemático"));
     }
 
     public int Dp2px(float dp) {

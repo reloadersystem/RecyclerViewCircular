@@ -1,4 +1,4 @@
-package rouchuan.circlelayoutmanager;
+package reloader.circlelayoutmanager;
 
 import android.content.Context;
 import android.graphics.PointF;
@@ -196,7 +196,7 @@ public class CircleLayoutManager extends RecyclerView.LayoutManager{
 //TODO ESCALAR
     }
 
-    private int calLeftPosition(float rotate){
+      private int calLeftPosition(float rotate){
         return (int) (mRadius * Math.cos(Math.toRadians(180 - rotate)));
     }
 

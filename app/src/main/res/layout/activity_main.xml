@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/fr_contenedor"
+    >
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
         android:scrollbars="vertical"
         />
 
@@ -19,21 +22,11 @@
         android:src="@android:drawable/ic_dialog_email" />
 
     <ImageView
-    android:src="@drawable/sh_circular"
-    android:layout_marginTop="140dp"
-    android:layout_width="280dp"
-    android:layout_height="280dp"
-    android:layout_gravity="center_horizontal"
-        android:visibility="gone"
-        ></ImageView>
-
-    <ImageView
         android:id="@+id/img_central"
         android:src="@drawable/sh_circular"
-        android:layout_marginTop="240dp"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center_horizontal|center_vertical"
         ></ImageView>
 
 

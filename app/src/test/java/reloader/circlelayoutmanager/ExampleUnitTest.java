@@ -1,4 +1,4 @@
-package rouchuan.circlelayoutmanager;
+package reloader.circlelayoutmanager;
 
 import org.junit.Test;
 

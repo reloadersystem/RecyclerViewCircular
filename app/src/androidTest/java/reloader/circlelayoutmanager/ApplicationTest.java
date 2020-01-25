@@ -1,4 +1,4 @@
-package rouchuan.circlelayoutmanager;
+package reloader.circlelayoutmanager;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,4 +1,4 @@
-package rouchuan.circlelayoutmanager;
+package reloader.circlelayoutmanager;
 
 import android.support.v7.widget.RecyclerView;
 
