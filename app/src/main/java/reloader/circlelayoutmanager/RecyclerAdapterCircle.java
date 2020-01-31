@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,13 +50,12 @@ public class RecyclerAdapterCircle extends RecyclerView.Adapter<RecyclerAdapterC
 
 //        int index = (position + 1) % 12;
 //        int res = 0;
+
+
         loadAnimations();
         changeCameraDistance(holder.iconImg, holder.iconImg2);
-
         holder.setIsRecyclable(false);
-
         holder.iconImg.setImageResource(listIcon.get(position).getImgmenu());
-
         final View viewScale = holder.iconImg;
 
         int num = listIcon.size();

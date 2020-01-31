@@ -15,9 +15,9 @@ import android.view.ViewGroup;
  */
 public class CircleLayoutManager extends RecyclerView.LayoutManager {
 
-    private static int INTERVAL_ANGLE = 30;// The default interval angle between each items
+    private static int INTERVAL_ANGLE = 60;// The default interval angle between each items
     //private static float DISTANCE_RATIO = 10f; // Finger swipe distance divide item rotate angle
-    private static float DISTANCE_RATIO = 20f; // Finger swipe distance divide item rotate angle
+    private static float DISTANCE_RATIO = 10f; // Finger swipe distance divide item rotate angle
 
     //Flags of scroll dirction
     private static int SCROLL_LEFT = 1;
